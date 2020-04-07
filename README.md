@@ -1,4 +1,4 @@
-![header](https://github.com/salomaocristiano/gostack11-desafio-conceitos-nodejs/assets/header-desafios.png)
+![header](https://raw.githubusercontent.com/salomaocristiano/gostack11-desafio-conceitos-nodejs/master/assets/header-desafios.png)
 
 <h3 align="center">
   Desafio Rocket Seat: Conceitos do Node.js
@@ -6,7 +6,7 @@
 
 ## Screenshot
 
-![image-example](https://github.com/salomaocristiano/gostack11-desafio-conceitos-nodejs/assets/bootcamp.jpg)
+![image-example](https://raw.githubusercontent.com/salomaocristiano/gostack11-desafio-conceitos-nodejs/master/assets/bootcamp.jpg)
 
 ## :rocket: Sobre o desafio
 
