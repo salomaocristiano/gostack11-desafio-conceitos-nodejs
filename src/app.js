@@ -9,30 +9,30 @@ app.use(cors());
 
 const repositories = [];
 
-function validateRepositorieId(req, res, next) {
+function validateRepositoryId(req, res, next) {
   const { id } = req.params
 
   if(!isUuid(id)) {
-    return res.status(400).json({ error: "Invalide repositorie ID." })
+    return res.status(400).json({ error: "Invalide repository ID." })
   }
 
   return next()
 }
 
-function repositorieExists(req, res, next) {
+function repositoryExists(req, res, next) {
   const { id } = req.params;
 
-  const repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
-  if(repositorieIndex < 0) {
-    return res.status(400).json({ error: 'Repositorie not found.' });
+  const repositoryIndex = repositories.findIndex(repository => repository.id === id);
+  if(repositoryIndex < 0) {
+    return res.status(400).json({ error: 'Repository not found.' });
   }
 
-  req.repositorieIndex = repositorieIndex;
+  req.repositoryIndex = repositoryIndex;
 
   return next();
 }
 
-app.use("/repositories/:id", validateRepositorieId, repositorieExists)
+app.use("/repositories/:id", validateRepositoryId, repositoryExists)
 
 app.get("/repositories", (req, res) => {
   return res.json(repositories);
@@ -41,11 +41,11 @@ app.get("/repositories", (req, res) => {
 app.post("/repositories", (req, res) => {
   const { title, url, techs } = req.body;
 
-  const repositorie = { id: uuid(), title, url, techs, likes: 0 };
+  const repository = { id: uuid(), title, url, techs, likes: 0 };
   
-  repositories.push(repositorie);
+  repositories.push(repository);
 
-  return res.json(repositorie);
+  return res.json(repository);
 });
 
 app.put("/repositories/:id", (req, res) => {
@@ -53,9 +53,9 @@ app.put("/repositories/:id", (req, res) => {
 
   const { title, url, techs } = req.body;
 
-  const { likes } = repositories[req.repositorieIndex];
+  const { likes } = repositories[req.repositoryIndex];
 
-  const repositorie = {
+  const repository = {
     id,
     title, 
     url, 
@@ -63,21 +63,21 @@ app.put("/repositories/:id", (req, res) => {
     likes,
   }
 
-  repositories[req.repositorieIndex] = repositorie;
+  repositories[req.repositoryIndex] = repository;
 
-  return res.json(repositorie);
+  return res.json(repository);
 });
 
 app.delete("/repositories/:id", (req, res) => {
-  repositories.splice(req.repositorieIndex, 1);
+  repositories.splice(req.repositoryIndex, 1);
 
   return res.status(204).send();
 });
 
 app.post("/repositories/:id/like", (req, res) => {
-  repositories[req.repositorieIndex].likes += 1;
+  repositories[req.repositoryIndex].likes += 1;
 
-  return res.json(repositories[req.repositorieIndex]);
+  return res.json(repositories[req.repositoryIndex]);
 });
 
 module.exports = app;
